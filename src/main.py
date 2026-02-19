@@ -1,1 +1,2 @@
-print("password analyzer starting")
+password = input("Enter password: ")
+print("Password received")
