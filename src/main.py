@@ -1,2 +1,4 @@
+from analyzer import analyze_password
+
 password = input("Enter password: ")
-print("Password received")
+analyze_password(password)
