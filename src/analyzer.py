@@ -10,6 +10,9 @@ def check_has_uppercase(password):
 def check_has_lowercase(password):
     return any(char.islower() for char in password)
 
+def check_has_special_char(password):
+    special_characters = "!@#$%^&*()-_=+[]|;:',.<>?/"
+    return any(char in special_characters for char in password)
 
 def analyze_password(password):
     score = 0
@@ -33,5 +36,10 @@ def analyze_password(password):
         score += 1
     else:
         failures.append("Password must contain at least one lowercase letter")
+
+    if check_has_special_char(password):
+        score += 1
+    else:
+        failures.append("Password must contain at least one special character")
 
     return score, failures
