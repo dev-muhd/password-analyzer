@@ -17,6 +17,9 @@ def check_has_special_char(password):
 def analyze_password(password):
     score = 0
     failures = []
+    rules = [check_min_length, check_has_digit, check_has_uppercase, check_has_uppercase, check_has_lowercase, check_has_special_char]
+    total_rule_count = len(rules)
+    
     if check_min_length(password):
         score += 1
     else:
@@ -42,4 +45,17 @@ def analyze_password(password):
     else:
         failures.append("Password must contain at least one special character")
 
-    return score, failures
+    strength_ratio = score / total_rule_count
+    if strength_ratio < 0.4:
+        strength_label = "Weak"
+    elif strength_ratio < 0.7:
+        strength_label = "Medium"
+    else:
+        strength_label = "Strong"
+
+    return {
+        "score": score,
+        "total_rules": total_rule_count,
+        "failures": failures,
+        "strength": strength_label
+    }
