@@ -3,6 +3,9 @@ def check_min_length(password):
 
 def check_has_digit(password):
     return any(char.isdigit() for char in password)
+
+def check_has_uppercase(password):
+    return any(char.isupper() for char in password)
     
 
 
@@ -18,5 +21,10 @@ def analyze_password(password):
         score += 1
     else:
         failures.append("Password must contain at least one digit")
+
+    if check_has_uppercase(password):
+        score += 1
+    else:
+        failures.append("Password must contain at least an uppercase letter")
 
     return score, failures
