@@ -7,6 +7,8 @@ def check_has_digit(password):
 def check_has_uppercase(password):
     return any(char.isupper() for char in password)
     
+def check_has_lowercase(password):
+    return any(char.islower() for char in password)
 
 
 def analyze_password(password):
@@ -25,6 +27,11 @@ def analyze_password(password):
     if check_has_uppercase(password):
         score += 1
     else:
-        failures.append("Password must contain at least an uppercase letter")
+        failures.append("Password must contain at least one uppercase letter")
+
+    if check_has_lowercase(password):
+        score += 1
+    else:
+        failures.append("Password must contain at least one lowercase letter")
 
     return score, failures
