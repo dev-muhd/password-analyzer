@@ -1,5 +1,14 @@
+def check_min_length(password):
+    return len(password) >= 8
+    
+
+
 def analyze_password(password):
-    if len(password) < 8:
-        print("Password too short")
+    score = 0
+    failures = []
+    if check_min_length(password):
+        score += 1
     else:
-        print("Password length is acceptable")
+        failures.append("Password too short (minimum 8 characters)")
+
+    return score, failures
