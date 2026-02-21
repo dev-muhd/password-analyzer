@@ -1,6 +1,11 @@
 from analyzer import analyze_password
 
 password = input("Enter password: ")
-analyze_password(password)
-score, failures = analyze_password(password)
-print(f"Password score: {score}, Failures: {failures}")
+result = analyze_password(password)
+
+print(
+    f"Password score: {result['score']}, "
+    f"Total rules: {result['total_rules']}, "
+    f"Failures: {result['failures']}, "
+    f"Password strength: {result['strength']}"
+)
