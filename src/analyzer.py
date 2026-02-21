@@ -40,7 +40,7 @@ def analyze_password(password):
         else:
             failures.append(failure_message)
 
-    strength_ratio = score / total_rule_count
+    strength_ratio = score / total_rule_count if total_rule_count else 0
     if strength_ratio < WEAK_THESHOLD:
         strength_label = "Weak"
     elif strength_ratio < MEDIUM_THRESHOLD:
