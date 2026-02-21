@@ -1,3 +1,6 @@
+WEAK_THESHOLD = 0.4
+MEDIUM_THRESHOLD = 0.7
+
 def check_min_length(password):
     return len(password) >= 8
 
@@ -14,41 +17,33 @@ def check_has_special_char(password):
     special_characters = "!@#$%^&*()-_=+[]|;:',.<>?/"
     return any(char in special_characters for char in password)
 
+def check_no_spaces(password):
+    return " " not in password
+
+
 def analyze_password(password):
+    rules = [
+        (check_min_length, "Password too short (minimum 8 characters"),
+        (check_has_digit, "Password must contain at least one digit"),
+        (check_has_uppercase, "Password must contain at least one uppercase letter"),
+        (check_has_lowercase, "Password must contain at least one lowercase letter"),
+        (check_has_special_char, "Password must contain at least one special character"),
+        (check_no_spaces, "No space is allowed in the password")
+    ]
     score = 0
     failures = []
-    rules = [check_min_length, check_has_digit, check_has_uppercase, check_has_uppercase, check_has_lowercase, check_has_special_char]
     total_rule_count = len(rules)
-    
-    if check_min_length(password):
-        score += 1
-    else:
-        failures.append("Password too short (minimum 8 characters)")
 
-    if check_has_digit(password):
-        score += 1
-    else:
-        failures.append("Password must contain at least one digit")
-
-    if check_has_uppercase(password):
-        score += 1
-    else:
-        failures.append("Password must contain at least one uppercase letter")
-
-    if check_has_lowercase(password):
-        score += 1
-    else:
-        failures.append("Password must contain at least one lowercase letter")
-
-    if check_has_special_char(password):
-        score += 1
-    else:
-        failures.append("Password must contain at least one special character")
+    for rule_function, failure_message in rules:
+        if rule_function(password):
+            score += 1
+        else:
+            failures.append(failure_message)
 
     strength_ratio = score / total_rule_count
-    if strength_ratio < 0.4:
+    if strength_ratio < WEAK_THESHOLD:
         strength_label = "Weak"
-    elif strength_ratio < 0.7:
+    elif strength_ratio < MEDIUM_THRESHOLD:
         strength_label = "Medium"
     else:
         strength_label = "Strong"
