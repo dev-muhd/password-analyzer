@@ -23,7 +23,7 @@ def check_no_spaces(password):
 
 def analyze_password(password):
     rules = [
-        (check_min_length, "Password too short (minimum 8 characters"),
+        (check_min_length, "Password too short (minimum 8 characters)"),
         (check_has_digit, "Password must contain at least one digit"),
         (check_has_uppercase, "Password must contain at least one uppercase letter"),
         (check_has_lowercase, "Password must contain at least one lowercase letter"),
